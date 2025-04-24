@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:8080}
+authorizeHttpRequests:
+  permitAll: ${REQUESTS_PERMITTED}
+  authenticated: ${REQUESTS_AUTHENTICATED}
+  denyAll: ${REQUESTS_DENIED}
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY}
+      expire-length: ${EXPIRE_KEY}
+cors:
+  originPatterns: ${ORIGIN_CORS}
+spring:
+  application:
+    name: labtrack-service
+  profiles:
+    active: @profileActive@
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc:
+        lob:
+          non_contextual_creation: true
+    show-sql: false
+
+# dev configuration
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import: optional:file:.env[.properties]

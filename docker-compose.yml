@@ -1,0 +1,47 @@
+services:
+  postgres:
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_SCHEMA}'"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_DB: ${DATABASE_SCHEMA}
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - labtrack-net
+
+  pgadmin:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: pgadmin
+    restart: always
+    image: dpage/pgadmin4
+    profiles: [ 'dev' ]
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
+    ports:
+      - ${PGADMIN_MAPPING_PORT}:${PGADMIN_PORT}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - labtrack-net
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+networks:
+  labtrack-net:
+    driver: bridge
