@@ -1,6 +1,5 @@
 package br.com.project.labtrack.dto;
 
-import br.com.project.labtrack.domain.MonitoramentoTransporte;
 import br.com.project.labtrack.infra.utils.ClassificacaoRisco;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +26,6 @@ public class InventarioItemDTO {
     private LocalDate dataVencimento;
     private LocalDateTime data_registro;
     private LocalDateTime ultimaAlteracaoData;
-    private List<MonitoramentoTransporte> transportes;
+    private List<MonitoramentoTransporteDTO> transportes;
 
 }

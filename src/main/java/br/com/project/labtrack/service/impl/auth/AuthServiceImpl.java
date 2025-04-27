@@ -4,6 +4,7 @@ import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.TokenDTO;
 import br.com.project.labtrack.dto.auth.UserAuthDTO;
 import br.com.project.labtrack.infra.security.jwt.service.JwtService;
+import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.PermissaoRepository;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.AuthService;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -84,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
             refreshToken = refreshToken.substring("Bearer ".length());
         }
 
-        var user = pegarUsuarioAutenticado();
+        var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
         if(!jwtService.isTokenValid(refreshToken, user)){
             throw new RuntimeException("Token Inválido!");
@@ -93,10 +93,5 @@ public class AuthServiceImpl implements AuthService {
         var tokenDTO = jwtService.criarToken(user);
 
         return ResponseEntity.ok(tokenDTO);
-    }
-
-    @Override
-    public Usuario pegarUsuarioAutenticado() {
-        return (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

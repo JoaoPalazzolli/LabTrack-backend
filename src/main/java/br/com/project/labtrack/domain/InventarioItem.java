@@ -3,6 +3,7 @@ package br.com.project.labtrack.domain;
 import br.com.project.labtrack.infra.utils.ClassificacaoRisco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class InventarioItem {
 
     @Id
@@ -41,10 +43,14 @@ public class InventarioItem {
     private LocalDate dataVencimento;
 
     @Column(name = "data_registro", nullable = false)
-    private LocalDateTime data_registro;
+    @Builder.Default private final LocalDateTime data_registro = LocalDateTime.now();
 
     @Column(name = "ultima_alteracao_data")
     private LocalDateTime ultimaAlteracaoData;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @OneToMany(mappedBy = "item")
     private List<MonitoramentoTransporte> transportes;

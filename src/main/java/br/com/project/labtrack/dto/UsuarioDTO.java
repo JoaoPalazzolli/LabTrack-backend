@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -16,7 +17,5 @@ public class UsuarioDTO {
     private UUID id;
     private String nome;
     private String email;
-    private String senha;
-    private String role;
-
+    private LocalDateTime contaCriada;
 }

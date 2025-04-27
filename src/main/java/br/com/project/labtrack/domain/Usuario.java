@@ -50,6 +50,9 @@ public class Usuario implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<InventarioItem> itens;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_permissao", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id"))

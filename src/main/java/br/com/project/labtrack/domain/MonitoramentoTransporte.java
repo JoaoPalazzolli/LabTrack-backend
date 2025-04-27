@@ -1,5 +1,6 @@
 package br.com.project.labtrack.domain;
 
+import br.com.project.labtrack.infra.utils.StatusTransporte;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,13 +20,21 @@ public class MonitoramentoTransporte {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID codigoTransporte;
 
-    // implementar usuario recebido e usuario enviado
+    @Column(name = "usuario_enviado")
+    private Usuario usuarioEnviado;
+
+    @Column(name = "usuario_recebido")
+    private Usuario usuarioRecebido;
 
     @Column(name = "data_recebimento")
     private LocalDateTime dataRecebimento;
 
     @Column(name = "data_saida")
     private LocalDateTime dataSaida;
+
+    @Column(name = "status_transporte")
+    @Enumerated(EnumType.STRING)
+    private StatusTransporte statusTransporte;
 
     @ManyToOne
     @JoinColumn(name = "codigo_item")
