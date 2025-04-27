@@ -5,18 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class UsuarioDTO {
+@Data
+public class TokenDTO {
 
-    private UUID id;
-    private String nome;
-    private String email;
-    private String senha;
-    private String role;
+    private String accessToken;
+    private String refreshToken;
 
 }

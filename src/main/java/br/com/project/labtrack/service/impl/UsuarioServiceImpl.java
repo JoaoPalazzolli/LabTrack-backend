@@ -2,66 +2,62 @@ package br.com.project.labtrack.service.impl;
 
 import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.UsuarioDTO;
+import br.com.project.labtrack.infra.utils.Mapper;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.UsuarioService;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
-    public UsuarioDTO criarUsuario(UsuarioDTO dto) {
-        Usuario usuario = new Usuario();
-        BeanUtils.copyProperties(dto, usuario);
-        Usuario salvo = usuarioRepository.save(usuario);
-        UsuarioDTO retorno = new UsuarioDTO();
-        BeanUtils.copyProperties(salvo, retorno);
-        return retorno;
-    }
+    public ResponseEntity<UsuarioDTO>  buscarPorId(UUID usuarioId) {
+        var usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // arrumar exceptions
 
-    @Override
-    public Optional<Usuario> buscarPorId(UUID id) {
-        return usuarioRepository.findById(id);
+        var dto = Mapper.parseTo(usuario, UsuarioDTO.class);
+
+        return ResponseEntity.ok(dto);
     }
 
 
     @Override
-    public List<UsuarioDTO> listarTodos() {
-        return usuarioRepository.findAll()
-                .stream()
-                .map(usuario -> {
-                    UsuarioDTO dto = new UsuarioDTO();
-                    BeanUtils.copyProperties(usuario, dto);
-                    return dto;
-                }).collect(Collectors.toList());
+    public ResponseEntity<List<UsuarioDTO>> listarTodos() {
+        var usuarios = usuarioRepository.findAll();
+
+        return ResponseEntity.ok(Mapper.parseListTo(usuarios, UsuarioDTO.class));
     }
 
     @Override
-    public UsuarioDTO atualizarUsuario(UUID id, UsuarioDTO dto) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        BeanUtils.copyProperties(dto, usuario, "id");
-        Usuario atualizado = usuarioRepository.save(usuario);
-        UsuarioDTO retorno = new UsuarioDTO();
-        BeanUtils.copyProperties(atualizado, retorno);
-        return retorno;
-    }
+    public ResponseEntity<Void> atualizarUsuario(UUID usuarioId, UsuarioDTO usuarioDTO) {
+        // verificar se existe esse registro no banco
+        var usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));// arrumar exception
 
-    @Override
-    public void deletarUsuario(UUID id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        usuario = Mapper.parseTo(usuarioDTO, Usuario.class);
+        usuario.setId(usuarioId);
+
         usuarioRepository.save(usuario);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deletarUsuario(UUID usuarioId) {
+        var usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuarioRepository.delete(usuario);
+
+        return ResponseEntity.noContent().build();
     }
 }

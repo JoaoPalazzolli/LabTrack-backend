@@ -1,10 +1,12 @@
 server:
   port: ${PORT:8080}
 
-authorizeHttpRequests:
-  permitAll: ${REQUESTS_PERMITTED}
-  authenticated: ${REQUESTS_AUTHENTICATED}
-  denyAll: ${REQUESTS_DENIED}
+authorize:
+  http:
+    requests:
+      permit-all: ${REQUESTS_PERMITTED}
+      authenticated: ${REQUESTS_AUTHENTICATED}
+      deny-all: ${REQUESTS_DENIED}
 
 security:
   jwt:
@@ -13,7 +15,7 @@ security:
       expire-length: ${EXPIRE_KEY}
 
 cors:
-  originPatterns: ${ORIGIN_CORS}
+  origin-patterns: ${ORIGIN_CORS}
 
 spring:
   application:
