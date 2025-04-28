@@ -19,26 +19,26 @@ public class MonitoramentoTransporteController {
 
     @PostMapping
     public ResponseEntity<Void> addTransporte(@RequestBody MonitoramentoTransporteDTO transporteDTO){
-        return monitoramentoTransporteService.addTransporte(transporteDTO);
+        return monitoramentoTransporteService.criarTransporte(transporteDTO);
     }
 
-    @PatchMapping(value = "/{transporteId}/status/{status}")
+    @PatchMapping(value = "/{codigoTransporte}/status/{status}")
     public ResponseEntity<Void> atualizarStatus(
-            @PathVariable(value = "transporteId") UUID transporteId,
+            @PathVariable(value = "codigoTransporte") UUID codigoTransporte,
             @PathVariable(value = "status") StatusTransporte statusTransporte){
-        return monitoramentoTransporteService.atualizarStatus(transporteId, statusTransporte);
+        return monitoramentoTransporteService.atualizarStatus(codigoTransporte, statusTransporte);
     }
 
-    @PatchMapping(value = "/{transporteId}")
+    @PatchMapping(value = "/{codigoTransporte}")
     public ResponseEntity<Void> atualizarUsuarioRecebido(
-            @PathVariable(value = "transporteId") UUID transporteId){
-        return monitoramentoTransporteService.atualizarUsuarioRecebido(transporteId);
+            @PathVariable(value = "codigoTransporte") UUID codigoTransporte){
+        return monitoramentoTransporteService.atualizarUsuarioRecebido(codigoTransporte);
     }
 
-    @GetMapping(value = "/{transporteId}")
+    @GetMapping(value = "/{codigoTransporte}")
     public ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorId(
-            @PathVariable(value = "transporteId") UUID transporteId){
-        return monitoramentoTransporteService.buscarTransportePorId(transporteId);
+            @PathVariable(value = "codigoTransporte") UUID codigoTransporte){
+        return monitoramentoTransporteService.buscarTransportePorId(codigoTransporte);
     }
 
     @GetMapping

@@ -54,7 +54,7 @@ public class Usuario implements UserDetails {
     private List<InventarioItem> itens;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permissao", joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "tb_user_permissao", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id"))
     private List<Permissao> permissoes;
 

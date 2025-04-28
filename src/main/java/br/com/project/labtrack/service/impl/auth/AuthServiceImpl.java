@@ -3,11 +3,14 @@ package br.com.project.labtrack.service.impl.auth;
 import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.TokenDTO;
 import br.com.project.labtrack.dto.auth.UserAuthDTO;
+import br.com.project.labtrack.infra.exceptions.InvalidJwtAuthenticationException;
+import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.security.jwt.service.JwtService;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.PermissaoRepository;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.AuthService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,10 +58,11 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Transactional
     @Override
     public ResponseEntity<TokenDTO> registrarUsuario(UserAuthDTO userAuthDTO) {
         var permissao = permissaoRepository.findByDescricao(userAuthDTO.getRole())
-                .orElseThrow(() -> new RuntimeException("Permissão não encontrada")); // arrumar Exception
+                .orElseThrow(() -> new ObjectNotFound("Permissão não encontrada"));
 
         var usuario = Usuario.builder()
                 .email(userAuthDTO.getEmail())
@@ -87,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
         if(!jwtService.isTokenValid(refreshToken, user)){
-            throw new RuntimeException("Token Inválido!");
+            throw new InvalidJwtAuthenticationException("Token Inválido!");
         }
 
         var tokenDTO = jwtService.criarToken(user);

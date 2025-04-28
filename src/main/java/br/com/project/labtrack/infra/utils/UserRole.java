@@ -1,5 +1,5 @@
 package br.com.project.labtrack.infra.utils;
 
 public enum UserRole {
-    ADMIN, COMUM_USER
+    ADMIN, COMMON_USER
 }

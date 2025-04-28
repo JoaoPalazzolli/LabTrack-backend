@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class MonitoramentoTransporteDTO {
     private LocalDateTime dataRecebimento;
     private LocalDateTime dataSaida;
     private StatusTransporte statusTransporte;
+    private List<InventarioItemDTO> itens;
+
 }

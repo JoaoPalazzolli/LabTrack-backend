@@ -21,9 +21,9 @@ public class InventarioItemController {
         return inventarioItemService.buscarTodosOsItens();
     }
 
-    @GetMapping(value = "/{itemId}")
-    public ResponseEntity<InventarioItemDTO> buscarItemPorId(@PathVariable(value = "itemId") UUID itemId){
-        return inventarioItemService.buscarItemPorId(itemId);
+    @GetMapping(value = "/{codigoItem}")
+    public ResponseEntity<InventarioItemDTO> buscarItemPorId(@PathVariable(value = "codigoItem") UUID codigoItem){
+        return inventarioItemService.buscarItemPorId(codigoItem);
     }
 
     @PostMapping
@@ -31,15 +31,15 @@ public class InventarioItemController {
         return inventarioItemService.adicionarItem(itemDTO);
     }
 
-    @PutMapping(value = "/{itemId}")
+    @PutMapping(value = "/{codigoItem}")
     public ResponseEntity<Void> atualizarItem(
-            @PathVariable(value = "itemId") UUID itemId,
+            @PathVariable(value = "codigoItem") UUID codigoItem,
             @RequestBody InventarioItemDTO itemDTO){
-        return inventarioItemService.atualizarItem(itemId, itemDTO);
+        return inventarioItemService.atualizarItem(codigoItem, itemDTO);
     }
 
-    @DeleteMapping(value = "/{itemId}")
-    public ResponseEntity<Void> deletarItem(@PathVariable(value = "itemId") UUID itemId){
-        return inventarioItemService.deletarItem(itemId);
+    @DeleteMapping(value = "/{codigoItem}")
+    public ResponseEntity<Void> deletarItem(@PathVariable(value = "codigoItem") UUID codigoItem){
+        return inventarioItemService.deletarItem(codigoItem);
     }
 }

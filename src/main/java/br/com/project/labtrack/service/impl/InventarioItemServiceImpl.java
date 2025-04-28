@@ -2,11 +2,14 @@ package br.com.project.labtrack.service.impl;
 
 import br.com.project.labtrack.domain.InventarioItem;
 import br.com.project.labtrack.dto.InventarioItemDTO;
+import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.utils.Mapper;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.InventarioItemRepository;
 import br.com.project.labtrack.service.InventarioItemService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +34,18 @@ public class InventarioItemServiceImpl implements InventarioItemService {
     }
 
     @Override
-    public ResponseEntity<InventarioItemDTO> buscarItemPorId(UUID itemId) {
+    public ResponseEntity<InventarioItemDTO> buscarItemPorId(UUID codigoItem) {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        var item = inventarioItemRepository.findByIdAndUsuarioId(itemId, user.getId())
-                .orElseThrow(() -> new RuntimeException("Item não encontrado")); // arrumar exception
+        var item = inventarioItemRepository.findByCodigoItemAndUsuarioId(codigoItem, user.getId())
+                .orElseThrow(() -> new ObjectNotFound("Item não encontrado"));
 
         var dto = Mapper.parseTo(item, InventarioItemDTO.class);
 
         return ResponseEntity.ok(dto);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<Void> adicionarItem(InventarioItemDTO itemDTO) {
         var item = Mapper.parseTo(itemDTO, InventarioItem.class);
@@ -52,15 +56,16 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         inventarioItemRepository.save(item);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @Transactional
     @Override
-    public ResponseEntity<Void> atualizarItem(UUID itemId, InventarioItemDTO itemDTO) {
+    public ResponseEntity<Void> atualizarItem(UUID codigoItem, InventarioItemDTO itemDTO) {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        var item = inventarioItemRepository.findByIdAndUsuarioId(itemId, user.getId())
-                .orElseThrow(() -> new RuntimeException("item não encontrado")); // arrumar
+        var item = inventarioItemRepository.findByCodigoItemAndUsuarioId(codigoItem, user.getId())
+                .orElseThrow(() -> new ObjectNotFound("Item não encontrado"));
 
         item = Mapper.parseTo(itemDTO, InventarioItem.class);
 
@@ -72,12 +77,13 @@ public class InventarioItemServiceImpl implements InventarioItemService {
         return ResponseEntity.noContent().build();
     }
 
+    @Transactional
     @Override
-    public ResponseEntity<Void> deletarItem(UUID itemId) {
+    public ResponseEntity<Void> deletarItem(UUID codigoItem) {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        var item = inventarioItemRepository.findByIdAndUsuarioId(itemId, user.getId())
-                .orElseThrow(() -> new RuntimeException("item não encontrado")); // arrumar
+        var item = inventarioItemRepository.findByCodigoItemAndUsuarioId(codigoItem, user.getId())
+                .orElseThrow(() -> new ObjectNotFound("Item não encontrado"));
 
         inventarioItemRepository.delete(item);
 

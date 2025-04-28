@@ -1,5 +1,6 @@
 package br.com.project.labtrack.infra.config;
 
+import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class AutenticacaoConfig {
     @Bean
     UserDetailsService userDetailsService(){
         return email -> usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado")); // arrumar o exception
+                .orElseThrow(() -> new ObjectNotFound("Usuario não encontrado"));
     }
 
     @Bean

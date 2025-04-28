@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,7 +37,8 @@ public class MonitoramentoTransporte {
     @Enumerated(EnumType.STRING)
     private StatusTransporte statusTransporte;
 
-    @ManyToOne
-    @JoinColumn(name = "codigo_item")
-    private InventarioItem item;
+    @ManyToMany
+    @JoinTable(name = "tb_transporte_itens", joinColumns = @JoinColumn(name = "codigo_transporte"),
+            inverseJoinColumns = @JoinColumn(name = "codigo_item"))
+    private List<InventarioItem> itens;
 }

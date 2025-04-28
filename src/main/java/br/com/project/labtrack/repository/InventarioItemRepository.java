@@ -11,12 +11,12 @@ import java.util.UUID;
 public interface InventarioItemRepository extends JpaRepository<InventarioItem, UUID> {
 
     @Query("""
-            SELECT i FROM InventarioItem WHERE i.codigoItem = :itemId AND i.usuario.id = :usuarioId
+            SELECT i FROM InventarioItem i WHERE i.codigoItem = :codigoItem AND i.usuario.id = :usuarioId
             """)
-    Optional<InventarioItem> findByIdAndUsuarioId(UUID itemId, UUID usuarioId);
+    Optional<InventarioItem> findByCodigoItemAndUsuarioId(UUID codigoItem, UUID usuarioId);
 
     @Query("""
-            SELECT i FROM InventarioItem WHERE i.usuario.id = :usuarioId
+            SELECT i FROM InventarioItem i WHERE i.usuario.id = :usuarioId
             """)
     List<InventarioItem> findAllByUsuarioId(UUID usuarioId);
 }

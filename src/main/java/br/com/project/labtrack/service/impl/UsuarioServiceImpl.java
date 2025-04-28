@@ -2,10 +2,12 @@ package br.com.project.labtrack.service.impl;
 
 import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.UsuarioDTO;
+import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.utils.Mapper;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.UsuarioService;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public ResponseEntity<UsuarioDTO>  buscarPorId(UUID usuarioId) {
         var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado")); // arrumar exceptions
+                .orElseThrow(() -> new ObjectNotFound("Usuário não encontrado"));
 
         var dto = Mapper.parseTo(usuario, UsuarioDTO.class);
 
@@ -37,11 +39,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         return ResponseEntity.ok(Mapper.parseListTo(usuarios, UsuarioDTO.class));
     }
 
+    @Transactional
     @Override
     public ResponseEntity<Void> atualizarUsuario(UUID usuarioId, UsuarioDTO usuarioDTO) {
         // verificar se existe esse registro no banco
         var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));// arrumar exception
+                .orElseThrow(() -> new ObjectNotFound("Usuário não encontrado"));
 
         usuario = Mapper.parseTo(usuarioDTO, Usuario.class);
         usuario.setId(usuarioId);
@@ -51,10 +54,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         return ResponseEntity.noContent().build();
     }
 
+    @Transactional
     @Override
     public ResponseEntity<Void> deletarUsuario(UUID usuarioId) {
         var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new ObjectNotFound("Usuário não encontrado"));
 
         usuarioRepository.delete(usuario);
 
