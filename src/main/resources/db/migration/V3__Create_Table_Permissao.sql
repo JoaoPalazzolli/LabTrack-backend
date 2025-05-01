@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS tb_permissao (
+    id UUID PRIMARY KEY,
+    descricao VARCHAR(50) NOT NULL UNIQUE
+);
