@@ -24,7 +24,7 @@ public class InventarioItemServiceImpl implements InventarioItemService {
     private InventarioItemRepository inventarioItemRepository;
 
     @Override
-    public ResponseEntity<List<InventarioItemDTO>> buscarTodosOsItens() {
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItens() {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
         var dtos = Mapper.parseListTo(

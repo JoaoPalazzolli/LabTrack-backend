@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface InventarioItemService {
 
-    ResponseEntity<List<InventarioItemDTO>> buscarTodosOsItens();
+    ResponseEntity<List<InventarioItemDTO>> buscarTodosItens();
     ResponseEntity<InventarioItemDTO> buscarItemPorId(UUID codigoItem);
     ResponseEntity<Void> adicionarItem(InventarioItemDTO itemDTO);
     ResponseEntity<Void> atualizarItem(UUID codigoItem, InventarioItemDTO itemDTO);

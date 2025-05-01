@@ -17,8 +17,8 @@ public class InventarioItemController {
     private InventarioItemService inventarioItemService;
 
     @GetMapping
-    public ResponseEntity<List<InventarioItemDTO>> buscarTodosOsItens(){
-        return inventarioItemService.buscarTodosOsItens();
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItens(){
+        return inventarioItemService.buscarTodosItens();
     }
 
     @GetMapping(value = "/{codigoItem}")
