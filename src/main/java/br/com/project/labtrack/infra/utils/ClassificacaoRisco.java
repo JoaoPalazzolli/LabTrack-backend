@@ -1,5 +1,5 @@
 package br.com.project.labtrack.infra.utils;
 
 public enum ClassificacaoRisco {
-    SEGURO, ATENCAO, PERIGOSO
+    SEGURO, ATENCAO, PERIGO
 }

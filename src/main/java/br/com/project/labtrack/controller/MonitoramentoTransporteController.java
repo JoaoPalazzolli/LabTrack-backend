@@ -19,7 +19,7 @@ public class MonitoramentoTransporteController {
 
     @PostMapping
     public ResponseEntity<Void> addTransporte(@RequestBody MonitoramentoTransporteDTO transporteDTO){
-        return monitoramentoTransporteService.criarTransporte(transporteDTO);
+        return monitoramentoTransporteService.addTransporte(transporteDTO);
     }
 
     @PatchMapping(value = "/{codigoTransporte}/status/{status}")

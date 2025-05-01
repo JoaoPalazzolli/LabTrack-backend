@@ -9,8 +9,8 @@ import java.util.UUID;
 public interface UsuarioService {
 
     ResponseEntity<List<UsuarioDTO>> listarTodos();
-    ResponseEntity<Void> atualizarUsuario(UUID id, UsuarioDTO dto);
-    ResponseEntity<Void> deletarUsuario(UUID id);
+    ResponseEntity<Void> atualizarNomeUsuario(String nome);
+    ResponseEntity<Void> deletarUsuario();
     ResponseEntity<UsuarioDTO> buscarPorId(UUID id);
     
 }

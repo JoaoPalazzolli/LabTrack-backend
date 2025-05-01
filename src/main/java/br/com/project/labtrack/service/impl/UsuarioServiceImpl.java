@@ -4,6 +4,7 @@ import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.UsuarioDTO;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.utils.Mapper;
+import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.UsuarioService;
 
@@ -41,26 +42,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional
     @Override
-    public ResponseEntity<Void> atualizarUsuario(UUID usuarioId, UsuarioDTO usuarioDTO) {
-        // verificar se existe esse registro no banco
-        var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new ObjectNotFound("Usuário não encontrado"));
+    public ResponseEntity<Void> atualizarNomeUsuario(String nome) {
+        var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        usuario = Mapper.parseTo(usuarioDTO, Usuario.class);
-        usuario.setId(usuarioId);
-
-        usuarioRepository.save(usuario);
+        usuarioRepository.updateNomeByUsuarioId(user.getId(), nome);
 
         return ResponseEntity.noContent().build();
     }
 
     @Transactional
     @Override
-    public ResponseEntity<Void> deletarUsuario(UUID usuarioId) {
-        var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new ObjectNotFound("Usuário não encontrado"));
+    public ResponseEntity<Void> deletarUsuario() {
+        var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        usuarioRepository.delete(usuario);
+        usuarioRepository.delete(user);
 
         return ResponseEntity.noContent().build();
     }

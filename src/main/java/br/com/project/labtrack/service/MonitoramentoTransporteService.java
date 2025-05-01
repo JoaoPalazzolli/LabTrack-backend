@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface MonitoramentoTransporteService {
 
-    ResponseEntity<Void> criarTransporte(MonitoramentoTransporteDTO transporteDTO);
+    ResponseEntity<Void> addTransporte(MonitoramentoTransporteDTO transporteDTO);
     ResponseEntity<Void> atualizarStatus(UUID codigoTransporte, StatusTransporte statusTransporte);
     ResponseEntity<Void> atualizarUsuarioRecebido(UUID codigoTransporte);
     ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorId(UUID codigoTransporte);

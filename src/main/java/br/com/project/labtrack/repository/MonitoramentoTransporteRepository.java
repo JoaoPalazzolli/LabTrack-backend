@@ -28,7 +28,7 @@ public interface MonitoramentoTransporteRepository extends JpaRepository<Monitor
 
     @Modifying
     @Query("""
-            UPDATE MonitoramentoTransporte m SET m.usuarioRecebido = :usuario
+            UPDATE MonitoramentoTransporte m SET m.usuarioRecebido = :usuario, m.dataRecebimento = CURRENT_TIMESTAMP
             WHERE m.codigoTransporte = :codigoTransporte
             """)
     void updateUsuarioRecebido(UUID codigoTransporte, Usuario usuario);

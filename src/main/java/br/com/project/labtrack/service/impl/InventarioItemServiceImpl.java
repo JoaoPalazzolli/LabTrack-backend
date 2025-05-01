@@ -69,6 +69,7 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         item = Mapper.parseTo(itemDTO, InventarioItem.class);
 
+        item.setCodigoItem(codigoItem);
         item.setUsuario(user);
         item.setUltimaAlteracaoData(LocalDateTime.now());
 
