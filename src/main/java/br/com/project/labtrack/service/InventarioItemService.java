@@ -13,4 +13,5 @@ public interface InventarioItemService {
     ResponseEntity<Void> adicionarItem(InventarioItemDTO itemDTO);
     ResponseEntity<Void> atualizarItem(UUID codigoItem, InventarioItemDTO itemDTO);
     ResponseEntity<Void> deletarItem(UUID codigoItem);
+    ResponseEntity<List<InventarioItemDTO>> buscarTodosItensPorDescricao(String descricao);
 }

@@ -19,4 +19,9 @@ public interface InventarioItemRepository extends JpaRepository<InventarioItem, 
             SELECT i FROM InventarioItem i WHERE i.usuario.id = :usuarioId
             """)
     List<InventarioItem> findAllByUsuarioId(UUID usuarioId);
+
+    @Query("""
+            SELECT i FROM InventarioItem i WHERE LOWER(i.descricao) LIKE LOWER(CONCAT('%', :descricao, '%')) AND i.usuario.id = :usuarioId
+            """)
+    List<InventarioItem> findByDescricao(UUID usuarioId, String descricao);
 }

@@ -90,4 +90,15 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensPorDescricao(String descricao) {
+        var user = UsuarioAutenticado.pegarUsuarioAutenticado();
+
+        var itens = inventarioItemRepository.findByDescricao(user.getId(), descricao);
+
+        var dtos = Mapper.parseListTo(itens, InventarioItemDTO.class);
+
+        return ResponseEntity.ok(dtos);
+    }
 }

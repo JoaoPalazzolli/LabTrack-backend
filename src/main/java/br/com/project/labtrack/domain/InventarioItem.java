@@ -1,6 +1,8 @@
 package br.com.project.labtrack.domain;
 
 import br.com.project.labtrack.infra.utils.ClassificacaoRisco;
+import br.com.project.labtrack.infra.utils.TipoItem;
+import br.com.project.labtrack.infra.utils.Unidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +30,20 @@ public class InventarioItem {
 
     @Column(name = "fornecedor")
     private String fornecedor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_item", nullable = false)
+    private TipoItem tipoItem;
+
+    @Column
+    private Double quantidade;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Unidade unidade;
+
+    @Column(name = "local_laboratorio")
+    private String locLaboratorio;
 
     @Column(name = "condicoes_armazenamento", nullable = false)
     private String condicoesArmazenamento;

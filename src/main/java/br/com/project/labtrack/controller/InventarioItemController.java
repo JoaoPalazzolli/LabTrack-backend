@@ -21,6 +21,11 @@ public class InventarioItemController {
         return inventarioItemService.buscarTodosItens();
     }
 
+    @GetMapping(value = "/descricao/{descricao}")
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensPorDescricao(@PathVariable(value = "descricao") String descricao){
+        return inventarioItemService.buscarTodosItensPorDescricao(descricao);
+    }
+
     @GetMapping(value = "/{codigoItem}")
     public ResponseEntity<InventarioItemDTO> buscarItemPorId(@PathVariable(value = "codigoItem") UUID codigoItem){
         return inventarioItemService.buscarItemPorId(codigoItem);
