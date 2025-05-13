@@ -21,9 +21,9 @@ public class InventarioItemController {
         return inventarioItemService.buscarTodosItens();
     }
 
-    @GetMapping(value = "/descricao/{descricao}")
-    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensPorDescricao(@PathVariable(value = "descricao") String descricao){
-        return inventarioItemService.buscarTodosItensPorDescricao(descricao);
+    @GetMapping(params = "search")
+    public ResponseEntity<List<InventarioItemDTO>> pesquisarItens(@RequestParam(defaultValue = "") String search){
+        return inventarioItemService.pesquisarItens(search);
     }
 
     @GetMapping(value = "/{codigoItem}")

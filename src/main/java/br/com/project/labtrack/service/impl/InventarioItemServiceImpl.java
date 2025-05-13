@@ -92,10 +92,10 @@ public class InventarioItemServiceImpl implements InventarioItemService {
     }
 
     @Override
-    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensPorDescricao(String descricao) {
+    public ResponseEntity<List<InventarioItemDTO>> pesquisarItens(String search) {
         var user = UsuarioAutenticado.pegarUsuarioAutenticado();
 
-        var itens = inventarioItemRepository.findByDescricao(user.getId(), descricao);
+        var itens = inventarioItemRepository.searchByDescricao(user.getId(), search);
 
         var dtos = Mapper.parseListTo(itens, InventarioItemDTO.class);
 
