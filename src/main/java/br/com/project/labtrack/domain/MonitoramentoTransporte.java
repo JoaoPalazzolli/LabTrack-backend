@@ -23,10 +23,12 @@ public class MonitoramentoTransporte {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID codigoTransporte;
 
-    @Column(name = "usuario_enviado")
+    @ManyToOne
+    @JoinColumn(name = "usuario_enviado")
     private Usuario usuarioEnviado;
 
-    @Column(name = "usuario_recebido")
+    @ManyToOne
+    @JoinColumn(name = "usuario_recebido")
     private Usuario usuarioRecebido;
 
     @Column(name = "data_recebimento")
