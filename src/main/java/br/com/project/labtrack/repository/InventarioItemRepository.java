@@ -2,6 +2,7 @@ package br.com.project.labtrack.repository;
 
 import br.com.project.labtrack.domain.InventarioItem;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -24,4 +25,12 @@ public interface InventarioItemRepository extends JpaRepository<InventarioItem, 
             SELECT i FROM InventarioItem i WHERE LOWER(i.descricao) LIKE LOWER(CONCAT('%', :search, '%')) AND i.usuario.id = :usuarioId
             """)
     List<InventarioItem> searchByDescricao(UUID usuarioId, String search);
+
+    @Modifying
+    @Query("""
+            UPDATE InventarioItem i 
+            SET i.quantidade = :quantidade 
+            WHERE i.codigoItem = :codigoItem AND i.usuario.id = :usuarioId
+            """)
+    void updateQuantidadeItem(UUID codigoItem, UUID usuarioId, Double quantidade);
 }

@@ -43,6 +43,11 @@ public class InventarioItemController {
         return inventarioItemService.atualizarItem(codigoItem, itemDTO);
     }
 
+    @PatchMapping(value = "/{codigoItem}/quantidade/{quantidade}")
+    public ResponseEntity<Void> atualizarQuantidade(@PathVariable UUID codigoItem, @PathVariable Double quantidade){
+        return inventarioItemService.atualizarQuantidade(codigoItem, quantidade);
+    }
+
     @DeleteMapping(value = "/{codigoItem}")
     public ResponseEntity<Void> deletarItem(@PathVariable(value = "codigoItem") UUID codigoItem){
         return inventarioItemService.deletarItem(codigoItem);

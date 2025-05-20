@@ -101,4 +101,14 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         return ResponseEntity.ok(dtos);
     }
+
+    @Transactional
+    @Override
+    public ResponseEntity<Void> atualizarQuantidade(UUID codigoItem, Double quantidade) {
+        var user = UsuarioAutenticado.pegarUsuarioAutenticado();
+
+        inventarioItemRepository.updateQuantidadeItem(codigoItem, user.getId(), quantidade);
+
+        return ResponseEntity.noContent().build();
+    }
 }
