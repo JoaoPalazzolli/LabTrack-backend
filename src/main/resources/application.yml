@@ -13,6 +13,8 @@ security:
     token:
       secret-key: ${SECRET_KEY}
       expire-length: ${EXPIRE_KEY}
+  api-key:
+      chatbot: ${API_KEY_CHATBOT}
 
 cors:
   origin-patterns: ${ORIGIN_CORS}

@@ -111,4 +111,31 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensBOT() {
+        var dtos = Mapper.parseListTo(
+                inventarioItemRepository.findAll(), InventarioItemDTO.class);
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    @Override
+    public ResponseEntity<List<InventarioItemDTO>> pesquisarItensBOT(String search) {
+        var itens = inventarioItemRepository.searchByDescricao(search);
+
+        var dtos = Mapper.parseListTo(itens, InventarioItemDTO.class);
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    @Override
+    public ResponseEntity<InventarioItemDTO> buscarItemPorIdBOT(UUID codigoItem) {
+        var item = inventarioItemRepository.findById(codigoItem)
+                .orElseThrow(() -> new ObjectNotFound("Item não encontrado"));
+
+        var dto = Mapper.parseTo(item, InventarioItemDTO.class);
+
+        return ResponseEntity.ok(dto);
+    }
 }

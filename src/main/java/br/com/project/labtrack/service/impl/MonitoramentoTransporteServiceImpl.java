@@ -87,4 +87,20 @@ public class MonitoramentoTransporteServiceImpl implements MonitoramentoTranspor
 
         return ResponseEntity.ok(dtos);
     }
+
+    @Override
+    public ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorIdBOT(UUID codigoTransporte) {
+        var transporte = monitoramentoTransporteRepository.findById(codigoTransporte)
+                .orElseThrow(() -> new ObjectNotFound("Transporte não encontrado"));
+
+        return ResponseEntity.ok(Mapper.parseTo(transporte, MonitoramentoTransporteDTO.class));
+    }
+
+    @Override
+    public ResponseEntity<List<MonitoramentoTransporteDTO>> buscarTodosTransportesBOT() {
+        var dtos = Mapper.parseListTo(monitoramentoTransporteRepository
+                .findAll(), MonitoramentoTransporteDTO.class);
+
+        return ResponseEntity.ok(dtos);
+    }
 }

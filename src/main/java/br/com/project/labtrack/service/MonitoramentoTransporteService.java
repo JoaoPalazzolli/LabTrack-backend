@@ -14,4 +14,8 @@ public interface MonitoramentoTransporteService {
     ResponseEntity<Void> atualizarUsuarioRecebido(UUID codigoTransporte);
     ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorId(UUID codigoTransporte);
     ResponseEntity<List<MonitoramentoTransporteDTO>> buscarTodosTransportesPorUsuario();
+
+    ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorIdBOT(UUID codigoTransporte);
+    ResponseEntity<List<MonitoramentoTransporteDTO>> buscarTodosTransportesBOT();
+
 }

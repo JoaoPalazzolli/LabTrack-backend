@@ -26,6 +26,11 @@ public interface InventarioItemRepository extends JpaRepository<InventarioItem, 
             """)
     List<InventarioItem> searchByDescricao(UUID usuarioId, String search);
 
+    @Query("""
+            SELECT i FROM InventarioItem i WHERE LOWER(i.descricao) LIKE LOWER(CONCAT('%', :search, '%'))
+            """)
+    List<InventarioItem> searchByDescricao(String search);
+
     @Modifying
     @Query("""
             UPDATE InventarioItem i 

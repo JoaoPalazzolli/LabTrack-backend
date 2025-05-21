@@ -52,4 +52,19 @@ public class InventarioItemController {
     public ResponseEntity<Void> deletarItem(@PathVariable(value = "codigoItem") UUID codigoItem){
         return inventarioItemService.deletarItem(codigoItem);
     }
+
+    @GetMapping(value = "/chatbot")
+    public ResponseEntity<List<InventarioItemDTO>> buscarTodosItensBOT(){
+        return inventarioItemService.buscarTodosItensBOT();
+    }
+
+    @GetMapping(value = "/chatbot", params = "search")
+    public ResponseEntity<List<InventarioItemDTO>> pesquisarItensBOT(@RequestParam(defaultValue = "") String search){
+        return inventarioItemService.pesquisarItensBOT(search);
+    }
+
+    @GetMapping(value = "/chatbot/{codigoItem}")
+    public ResponseEntity<InventarioItemDTO> buscarItemPorIdBOT(@PathVariable(value = "codigoItem") UUID codigoItem){
+        return inventarioItemService.buscarItemPorIdBOT(codigoItem);
+    }
 }

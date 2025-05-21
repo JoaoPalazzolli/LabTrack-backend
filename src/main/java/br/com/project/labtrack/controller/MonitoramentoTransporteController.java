@@ -45,4 +45,15 @@ public class MonitoramentoTransporteController {
     public ResponseEntity<List<MonitoramentoTransporteDTO>> buscarTodosTransportesPorUsuario(){
         return monitoramentoTransporteService.buscarTodosTransportesPorUsuario();
     }
+
+    @GetMapping(value = "/chatbot/{codigoTransporte}")
+    public ResponseEntity<MonitoramentoTransporteDTO> buscarTransportePorIdBOT(
+            @PathVariable(value = "codigoTransporte") UUID codigoTransporte){
+        return monitoramentoTransporteService.buscarTransportePorIdBOT(codigoTransporte);
+    }
+
+    @GetMapping(value = "/chatbot")
+    public ResponseEntity<List<MonitoramentoTransporteDTO>> buscarTodosTransportesBOT(){
+        return monitoramentoTransporteService.buscarTodosTransportesBOT();
+    }
 }

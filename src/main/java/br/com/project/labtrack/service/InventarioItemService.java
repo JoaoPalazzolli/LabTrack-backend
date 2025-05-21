@@ -16,4 +16,7 @@ public interface InventarioItemService {
     ResponseEntity<List<InventarioItemDTO>> pesquisarItens(String search);
     ResponseEntity<Void> atualizarQuantidade(UUID codigoItem, Double quantidade);
 
+    ResponseEntity<List<InventarioItemDTO>> buscarTodosItensBOT();
+    ResponseEntity<List<InventarioItemDTO>> pesquisarItensBOT(String search);
+    ResponseEntity<InventarioItemDTO> buscarItemPorIdBOT(UUID codigoItem);
 }

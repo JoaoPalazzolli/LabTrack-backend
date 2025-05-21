@@ -1,5 +1,6 @@
 package br.com.project.labtrack.infra.config;
 
+import br.com.project.labtrack.infra.security.jwt.ApiKeyAuthFilter;
 import br.com.project.labtrack.infra.security.jwt.JwtAutenticacaoFiltro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,9 @@ public class SecurityConfig {
     private JwtAutenticacaoFiltro jwtAutenticacaoFiltro;
 
     @Autowired
+    private ApiKeyAuthFilter apiKeyAuthFilter;
+
+    @Autowired
     private AuthorizeHttpRequests authorize;
 
     @Bean
@@ -40,6 +44,7 @@ public class SecurityConfig {
                 )
                 .cors(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider)
+                .addFilterBefore(apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAutenticacaoFiltro, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
