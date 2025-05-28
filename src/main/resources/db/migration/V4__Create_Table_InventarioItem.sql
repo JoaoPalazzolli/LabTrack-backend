@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS tb_inventario_item (
     codigo_item UUID PRIMARY KEY,
     descricao VARCHAR(255),
+    qr_code_image_url VARCHAR(255) UNIQUE,
     tipo_item VARCHAR(20),
     quantidade NUMERIC(19,2),
     unidade VARCHAR(2),

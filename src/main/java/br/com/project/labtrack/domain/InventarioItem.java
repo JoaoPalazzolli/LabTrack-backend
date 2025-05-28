@@ -35,6 +35,9 @@ public class InventarioItem {
     @Column(name = "tipo_item", nullable = false)
     private TipoItem tipoItem;
 
+    @Column(name = "qr_code_image_url", unique = true)
+    private String qrCodeImageUrl;
+
     @Column
     private Double quantidade;
 

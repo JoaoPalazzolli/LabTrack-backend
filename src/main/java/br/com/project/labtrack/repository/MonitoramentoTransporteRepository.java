@@ -32,4 +32,12 @@ public interface MonitoramentoTransporteRepository extends JpaRepository<Monitor
             WHERE m.codigoTransporte = :codigoTransporte
             """)
     void updateUsuarioRecebido(UUID codigoTransporte, Usuario usuario);
+
+    @Modifying
+    @Query("""
+            UPDATE MonitoramentoTransporte m
+            SET m.qrCodeImageUrl = :qrCodeImageUrl
+            WHERE m.codigoTransporte = :codigoTransporte
+            """)
+    void updateQrCodeImageUrlTransporte(UUID codigoTransporte, String qrCodeImageUrl);
 }

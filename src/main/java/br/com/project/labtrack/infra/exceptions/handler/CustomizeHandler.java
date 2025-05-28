@@ -1,5 +1,6 @@
 package br.com.project.labtrack.infra.exceptions.handler;
 
+import br.com.project.labtrack.infra.exceptions.GenerationFailedException;
 import br.com.project.labtrack.infra.exceptions.InvalidJwtAuthenticationException;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.exceptions.ResponseException;
@@ -50,6 +51,18 @@ public class CustomizeHandler extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(responseException, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(GenerationFailedException.class)
+    public ResponseEntity<ResponseException> generationFailedExceptionHandler(WebRequest request, Exception ex){
+
+        var responseException = ResponseException.builder()
+                .mensagem(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .detalhes(request.getDescription(false))
+                .build();
+
+        return new ResponseEntity<>(responseException, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

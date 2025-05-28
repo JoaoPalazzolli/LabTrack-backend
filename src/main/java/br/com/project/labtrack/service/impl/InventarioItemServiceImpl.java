@@ -2,8 +2,11 @@ package br.com.project.labtrack.service.impl;
 
 import br.com.project.labtrack.domain.InventarioItem;
 import br.com.project.labtrack.dto.InventarioItemDTO;
+import br.com.project.labtrack.infra.exceptions.GenerationFailedException;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
+import br.com.project.labtrack.infra.cloudinary.CloudinaryService;
 import br.com.project.labtrack.infra.utils.Mapper;
+import br.com.project.labtrack.infra.qrcode.QRCodeGenerator;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.InventarioItemRepository;
 import br.com.project.labtrack.service.InventarioItemService;
@@ -22,6 +25,9 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
     @Autowired
     private InventarioItemRepository inventarioItemRepository;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Override
     public ResponseEntity<List<InventarioItemDTO>> buscarTodosItens() {
@@ -56,6 +62,13 @@ public class InventarioItemServiceImpl implements InventarioItemService {
 
         inventarioItemRepository.save(item);
 
+        try{
+            inventarioItemRepository.updateQrCodeImageUrlItem(item.getCodigoItem(),
+                    cloudinaryService.uploadQRCode(QRCodeGenerator.generate("Em manutenção...", 300, 300), item.getCodigoItem().toString()));
+        } catch (Exception e){
+            throw new GenerationFailedException("Erro ao gerar QR Code: " + e.getMessage());
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -67,11 +80,14 @@ public class InventarioItemServiceImpl implements InventarioItemService {
         var item = inventarioItemRepository.findByCodigoItemAndUsuarioId(codigoItem, user.getId())
                 .orElseThrow(() -> new ObjectNotFound("Item não encontrado"));
 
+        var qrCode = item.getQrCodeImageUrl();
+
         item = Mapper.parseTo(itemDTO, InventarioItem.class);
 
         item.setCodigoItem(codigoItem);
         item.setUsuario(user);
         item.setUltimaAlteracaoData(LocalDateTime.now());
+        item.setQrCodeImageUrl(qrCode);
 
         inventarioItemRepository.save(item);
 

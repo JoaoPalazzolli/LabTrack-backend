@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS tb_monitoramento_transporte (
     codigo_transporte UUID PRIMARY KEY,
+    qr_code_image_url VARCHAR(255) UNIQUE,
     usuario_enviado UUID,
     usuario_recebido UUID,
     data_recebimento TIMESTAMP,

@@ -17,6 +17,7 @@ import java.util.UUID;
 public class MonitoramentoTransporteDTO {
 
     private UUID codigoTransporte;
+    private String qrCodeImageUrl;
     private UsuarioDTO usuarioEnviado;
     private UsuarioDTO usuarioRecebido;
     private LocalDateTime dataRecebimento;

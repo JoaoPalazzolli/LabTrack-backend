@@ -33,6 +33,8 @@
 		<java-jwt.version>4.4.0</java-jwt.version>
 		<postgresql.version>42.7.3</postgresql.version>
 		<lombok.version>1.18.38</lombok.version>
+		<google-zxing.version>3.5.2</google-zxing.version>
+		<cloudinary.version>1.38.0</cloudinary.version>
 	</properties>
 	<dependencies>
 
@@ -119,6 +121,24 @@
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>${java-jwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${google-zxing.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${google-zxing.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>${cloudinary.version}</version>
 		</dependency>
 
 		<dependency>

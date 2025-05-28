@@ -23,6 +23,9 @@ public class MonitoramentoTransporte {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID codigoTransporte;
 
+    @Column(name = "qr_code_image_url", unique = true)
+    private String qrCodeImageUrl;
+
     @ManyToOne
     @JoinColumn(name = "usuario_enviado")
     private Usuario usuarioEnviado;

@@ -1,10 +1,11 @@
 package br.com.project.labtrack.service.impl;
 
 import br.com.project.labtrack.domain.MonitoramentoTransporte;
-import br.com.project.labtrack.dto.InventarioItemDTO;
 import br.com.project.labtrack.dto.MonitoramentoTransporteDTO;
-import br.com.project.labtrack.dto.UsuarioDTO;
+import br.com.project.labtrack.infra.cloudinary.CloudinaryService;
+import br.com.project.labtrack.infra.exceptions.GenerationFailedException;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
+import br.com.project.labtrack.infra.qrcode.QRCodeGenerator;
 import br.com.project.labtrack.infra.utils.Mapper;
 import br.com.project.labtrack.infra.utils.StatusTransporte;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
@@ -30,6 +31,9 @@ public class MonitoramentoTransporteServiceImpl implements MonitoramentoTranspor
     @Autowired
     private InventarioItemRepository inventarioItemRepository;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
     @Transactional
     @Override
     public ResponseEntity<Void> addTransporte(MonitoramentoTransporteDTO transporteDTO) {
@@ -46,6 +50,13 @@ public class MonitoramentoTransporteServiceImpl implements MonitoramentoTranspor
                 .build();
 
         monitoramentoTransporteRepository.save(transporte);
+
+        try{
+            monitoramentoTransporteRepository.updateQrCodeImageUrlTransporte(transporte.getCodigoTransporte(),
+                    cloudinaryService.uploadQRCode(QRCodeGenerator.generate("Em manutenção...", 300, 300), transporte.getCodigoTransporte().toString()));
+        } catch (Exception e){
+            throw new GenerationFailedException("Erro ao gerar QR Code: " + e.getMessage());
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

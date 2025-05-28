@@ -33,9 +33,17 @@ public interface InventarioItemRepository extends JpaRepository<InventarioItem, 
 
     @Modifying
     @Query("""
-            UPDATE InventarioItem i 
+            UPDATE InventarioItem i
             SET i.quantidade = :quantidade 
             WHERE i.codigoItem = :codigoItem AND i.usuario.id = :usuarioId
             """)
     void updateQuantidadeItem(UUID codigoItem, UUID usuarioId, Double quantidade);
+
+    @Modifying
+    @Query("""
+            UPDATE InventarioItem i
+            SET i.qrCodeImageUrl = :qrCodeImageUrl
+            WHERE i.codigoItem = :codigoItem
+            """)
+    void updateQrCodeImageUrlItem(UUID codigoItem, String qrCodeImageUrl);
 }

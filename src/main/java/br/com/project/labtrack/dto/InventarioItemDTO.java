@@ -22,6 +22,7 @@ public class InventarioItemDTO {
     private String descricao;
     private String fornecedor;
 
+    private String qrCodeImageUrl;
     private TipoItem tipoItem;
     private Double quantidade;
     private Unidade unidade;

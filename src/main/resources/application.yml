@@ -16,6 +16,11 @@ security:
   api-key:
       chatbot: ${API_KEY_CHATBOT}
 
+cloudinary:
+  cloud_name: ${CLOUD_NAME}
+  api_key: ${API_KEY_CLOUDINARY}
+  api_secret: ${API_SECRET}
+
 cors:
   origin-patterns: ${ORIGIN_CORS}
 
