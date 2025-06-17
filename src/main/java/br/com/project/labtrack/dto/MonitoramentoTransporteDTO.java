@@ -1,6 +1,6 @@
 package br.com.project.labtrack.dto;
 
-import br.com.project.labtrack.infra.utils.StatusTransporte;
+import br.com.project.labtrack.utils.StatusTransporte;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

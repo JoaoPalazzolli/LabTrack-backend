@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS tb_inventario_item (
     fornecedor VARCHAR(100),
     condicoes_armazenamento VARCHAR(255) NOT NULL,
     classificacao_risco VARCHAR(10) NOT NULL,
+    possui_orgao_regulador BOOLEAN NOT NULL,
+    orgao_regulador VARCHAR(100) NULL,
     data_fabricacao DATE NOT NULL,
     data_vencimento DATE,
     data_registro TIMESTAMP NOT NULL,

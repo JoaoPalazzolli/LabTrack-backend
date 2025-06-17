@@ -1,9 +1,8 @@
 package br.com.project.labtrack.service.impl;
 
-import br.com.project.labtrack.domain.Usuario;
 import br.com.project.labtrack.dto.UsuarioDTO;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
-import br.com.project.labtrack.infra.utils.Mapper;
+import br.com.project.labtrack.utils.Mapper;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.UsuarioRepository;
 import br.com.project.labtrack.service.UsuarioService;

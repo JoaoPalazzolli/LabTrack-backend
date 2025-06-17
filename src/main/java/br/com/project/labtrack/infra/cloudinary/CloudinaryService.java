@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class CloudinaryService {

@@ -1,8 +1,9 @@
 package br.com.project.labtrack.domain;
 
-import br.com.project.labtrack.infra.utils.ClassificacaoRisco;
-import br.com.project.labtrack.infra.utils.TipoItem;
-import br.com.project.labtrack.infra.utils.Unidade;
+import br.com.project.labtrack.utils.ClassificacaoRisco;
+import br.com.project.labtrack.utils.OrgaoRegulador;
+import br.com.project.labtrack.utils.TipoItem;
+import br.com.project.labtrack.utils.Unidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,6 +60,13 @@ public class InventarioItem {
     private LocalDate dataFabricacao;
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
+
+    @Column(name = "possui_orgao_regulador", nullable = false)
+    private Boolean possuiOrgaoRegulador;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "orgao_regulador")
+    private OrgaoRegulador orgaoRegulador;
 
     @Column(name = "data_registro", nullable = false)
     @Builder.Default private final LocalDateTime data_registro = LocalDateTime.now();

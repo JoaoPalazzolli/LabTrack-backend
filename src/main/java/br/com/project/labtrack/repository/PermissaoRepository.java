@@ -1,7 +1,7 @@
 package br.com.project.labtrack.repository;
 
 import br.com.project.labtrack.domain.Permissao;
-import br.com.project.labtrack.infra.utils.UserRole;
+import br.com.project.labtrack.utils.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

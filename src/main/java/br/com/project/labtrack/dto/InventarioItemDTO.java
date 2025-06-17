@@ -1,8 +1,9 @@
 package br.com.project.labtrack.dto;
 
-import br.com.project.labtrack.infra.utils.ClassificacaoRisco;
-import br.com.project.labtrack.infra.utils.TipoItem;
-import br.com.project.labtrack.infra.utils.Unidade;
+import br.com.project.labtrack.utils.ClassificacaoRisco;
+import br.com.project.labtrack.utils.OrgaoRegulador;
+import br.com.project.labtrack.utils.TipoItem;
+import br.com.project.labtrack.utils.Unidade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,8 @@ public class InventarioItemDTO {
 
     private String condicoesArmazenamento;
     private ClassificacaoRisco classificacaoRisco;
+    private Boolean possuiOrgaoRegulador;
+    private OrgaoRegulador orgaoRegulador;
     private LocalDate dataFabricacao;
     private LocalDate dataVencimento;
     private LocalDateTime data_registro;

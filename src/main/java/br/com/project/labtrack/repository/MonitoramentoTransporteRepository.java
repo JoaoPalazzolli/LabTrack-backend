@@ -2,7 +2,7 @@ package br.com.project.labtrack.repository;
 
 import br.com.project.labtrack.domain.MonitoramentoTransporte;
 import br.com.project.labtrack.domain.Usuario;
-import br.com.project.labtrack.infra.utils.StatusTransporte;
+import br.com.project.labtrack.utils.StatusTransporte;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,6 @@
 package br.com.project.labtrack.domain;
 
-import br.com.project.labtrack.infra.utils.StatusTransporte;
+import br.com.project.labtrack.utils.StatusTransporte;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

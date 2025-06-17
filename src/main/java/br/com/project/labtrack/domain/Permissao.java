@@ -1,6 +1,6 @@
 package br.com.project.labtrack.domain;
 
-import br.com.project.labtrack.infra.utils.UserRole;
+import br.com.project.labtrack.utils.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

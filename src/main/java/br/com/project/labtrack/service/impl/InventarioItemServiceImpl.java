@@ -5,7 +5,7 @@ import br.com.project.labtrack.dto.InventarioItemDTO;
 import br.com.project.labtrack.infra.exceptions.GenerationFailedException;
 import br.com.project.labtrack.infra.exceptions.ObjectNotFound;
 import br.com.project.labtrack.infra.cloudinary.CloudinaryService;
-import br.com.project.labtrack.infra.utils.Mapper;
+import br.com.project.labtrack.utils.Mapper;
 import br.com.project.labtrack.infra.qrcode.QRCodeGenerator;
 import br.com.project.labtrack.infra.utils.UsuarioAutenticado;
 import br.com.project.labtrack.repository.InventarioItemRepository;

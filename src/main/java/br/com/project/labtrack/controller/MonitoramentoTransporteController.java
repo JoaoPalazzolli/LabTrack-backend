@@ -1,7 +1,7 @@
 package br.com.project.labtrack.controller;
 
 import br.com.project.labtrack.dto.MonitoramentoTransporteDTO;
-import br.com.project.labtrack.infra.utils.StatusTransporte;
+import br.com.project.labtrack.utils.StatusTransporte;
 import br.com.project.labtrack.service.MonitoramentoTransporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
