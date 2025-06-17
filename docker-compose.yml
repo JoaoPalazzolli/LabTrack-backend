@@ -38,6 +38,36 @@ services:
     networks:
       - labtrack-net
 
+  api:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: api-labtrack
+    restart: on-failure
+    image: joaopalazzolli/labtrack:1.0.0
+    profiles: [ 'prod' ]
+    environment:
+      PORT: ${PORT}
+      API_KEY_CHATBOT: ${API_KEY_CHATBOT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      EXPIRE_KEY: ${EXPIRE_KEY}
+      ORIGIN_CORS: ${ORIGIN_CORS}
+      REQUESTS_PERMITTED: ${REQUESTS_PERMITTED}
+      REQUESTS_AUTHENTICATED: ${REQUESTS_AUTHENTICATED}
+      REQUESTS_DENIED: ${REQUESTS_DENIED}
+      CLOUD_NAME: ${CLOUD_NAME}
+      API_KEY_CLOUDINARY: ${API_KEY_CLOUDINARY}
+      API_SECRET: ${API_SECRET}
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - labtrack-net
+
 volumes:
   postgres-data:
   pgadmin-data:
